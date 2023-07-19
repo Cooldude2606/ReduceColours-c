@@ -1,0 +1,6 @@
+[submodule "libs/lodepng"]
+	path = libs/lodepng
+	url = https://github.com/lvandeve/lodepng
+[submodule "libs/jpeg"]
+	path = libs/jpeg
+	url = https://github.com/akumrao/jpeg

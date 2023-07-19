@@ -1,0 +1,29 @@
+CC ?= gcc
+
+#override CFLAGS := -W -Wall -Wextra -pedantic -O3 $(CFLAGS)
+override CFLAGS := -W -Wall $(CFLAGS)
+
+LIBS := m
+src := src/priorityQueue.c src/hashMap.c src/colour3.c src/vector3.c
+src_o := src/priorityQueue.o src/hashMap.o src/colour3.o src/vector3.o
+
+libs := libs/lodepng/lodepng.o libs/jpeg/djpg.so
+
+all: app test
+
+app: src/main.o $(src_o) $(libs)
+	$(CC) $(CFLAGS) $^ -l$(LIBS) -o $@
+
+test: src/tests.c $(src) $(libs)
+	$(CC) $(CFLAGS) -D _TESTS $^ -l$(LIBS) -o $@
+
+libs/jpeg/djpg.so: libs/jpeg/src/djpg.c libs/jpeg/src/didct.c libs/jpeg/src/bitmap.c
+	$(CC) --shared -fPIC -w -O3 $^ -o $@
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f src/main.o src/tests.o $(src_o) $(libs)
+
+.PHONY: all clean
