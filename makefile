@@ -8,7 +8,7 @@ src_o := src/images.o src/octTree.o src/priorityQueue.o src/hashMap.o src/vector
 
 ext_libs := libs/lodepng/lodepng.o libs/nanojpeg/nanojpeg.o
 
-all: app multi test debug
+all: app multi
 
 app: src/main.o $(src_o) $(ext_libs)
 	$(CC) $(CFLAGS) $^ -l$(LIBS) -o $@
